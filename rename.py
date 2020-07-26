@@ -3,7 +3,7 @@ logger = logging.getLogger('Journal_exemple')
 logger.setLevel(logging.DEBUG)
 
 fl = logging.FileHandler('debug.log')
-fl.setLevel(logging.warning)
+fl.setLevel(logging.WARNING)
 logger.addHandler(fl)
 
 cl = logging.StreamHandler()
