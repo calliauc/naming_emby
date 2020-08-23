@@ -1,3 +1,5 @@
+import os
+
 import logging
 logger = logging.getLogger('Journal_exemple')
 logger.setLevel(logging.DEBUG)
@@ -22,6 +24,11 @@ logger.critical('erreur grave')
 #   name : nom de la série. Defaut : null
 #
 
+rep = '.'
+season = 1
+name = 'truc'
+exts = ['mkv', 'avi', 'mp4']
+
 # Scanner le répertoire parent +1
 # Si "saison XX" garder XX en mémoire sous season
 #   Scanner le réportoire parent +2 et garder le nom complet en mémoire sous name
@@ -35,3 +42,30 @@ logger.critical('erreur grave')
 # Renommer les fichiers multimedia sous la forme :
 # "name_sXXeYY.ext"
 # Quitter à la fin de la boucle
+
+files = os.listdir(rep)
+episodes = []
+sub = []
+
+# Création d'une liste de video et d'une liste de sous-titres
+
+print(files)
+for file in files:
+    # pass
+    split_name = file.split('.')
+    if split_name[-1] in exts:
+        episodes.append(file)
+    elif split_name[-1] == 'srt':
+        sub.append(file)
+
+print(episodes)
+print(sub)
+
+new_name = ''
+
+# Renommage des episodes
+nEp = 0
+for file in episodes:
+    nEp += 1
+    ext = file.split('.')[-1]
+    os.rename(file, new_name+'_s'+str(season)+'e'+str(nEp)+'.'+ext)
