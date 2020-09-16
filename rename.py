@@ -12,11 +12,11 @@ cl = logging.StreamHandler()
 cl.setLevel(logging.DEBUG)
 logger.addHandler(cl)
 
-logger.debug('Information-Debug')
-logger.info('Message info')
-logger.warning('avertissement')
-logger.error('message-erreur')
-logger.critical('erreur grave')
+# logger.debug('Information-Debug')
+# logger.info('Message info')
+# logger.warning('avertissement')
+# logger.error('message-erreur')
+# logger.critical('erreur grave')
 
 # Arguments :
 #   rep : répertoire de travail. Defaut : .
@@ -49,7 +49,7 @@ sub = []
 
 # Création d'une liste de video et d'une liste de sous-titres
 
-print(files)
+logger.debug(files)
 for file in files:
     # pass
     split_name = file.split('.')
@@ -58,8 +58,8 @@ for file in files:
     elif split_name[-1] == 'srt':
         sub.append(file)
 
-print(episodes)
-print(sub)
+logger.debug(episodes)
+logger.debug(sub)
 
 new_name = ''
 
