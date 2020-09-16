@@ -1,6 +1,8 @@
 import os
 
+import argparse
 import logging
+
 logger = logging.getLogger('Journal_exemple')
 logger.setLevel(logging.DEBUG)
 
@@ -12,22 +14,76 @@ cl = logging.StreamHandler()
 cl.setLevel(logging.DEBUG)
 logger.addHandler(cl)
 
-# logger.debug('Information-Debug')
-# logger.info('Message info')
-# logger.warning('avertissement')
-# logger.error('message-erreur')
-# logger.critical('erreur grave')
 
-# Arguments :
-#   rep : répertoire de travail. Defaut : .
-#   season : N° de saison. Defaut : null
-#   name : nom de la série. Defaut : null
-#
+parser = argparse.ArgumentParser()
+# verbose_group = parser.add_mutually_exclusive_group()
+# verbose_group.add_argument(
+#     "-m", "--mute", help="Mode silencieux, affiche uniquement les erreurs", action="store_true")
+parser.add_argument(
+    "-s", "--season", help="Numero de la saison des fichiers à renommer", type=str, default='')
+parser.add_argument(
+    "-n", "--name", help="Nom de la série des fichiers à renommer", type=str, default='')
+parser.add_argument(
+    "-r", "--rep", help="Repertoire de travail", type=str, default='.')
 
-rep = '.'
-season = 1
-name = 'truc'
-exts = ['mkv', 'avi', 'mp4']
+class Rename:
+    def __init__(self, args):
+        self.rep = args.rep
+        self.season = args.season
+        self.name = args.name
+        self.exts = ['mkv', 'avi', 'mp4']
+
+        # os.chdir(self.rep)
+
+        self.files = os.listdir(self.rep)
+        self.episodes = []
+        self.sub = []
+
+    def scan_rep(self):
+        logger.debug(self.files)
+
+
+        for file in self.files:
+            # if os.path.isdir(file):
+            #     logger.debug(file + ' est un repertoire')
+            # else:
+            #     logger.debug(file + ' n\'est pas un repertoire')
+            split_name = file.split('.')
+            if split_name[-1] in self.exts:
+                self.episodes.append(file)
+            elif split_name[-1] == 'srt':
+                self.sub.append(file)
+
+        logger.debug(self.episodes)
+        logger.debug(self.sub)
+
+
+    def rename_episodes(self):
+        nEp = 0
+        for file in self.episodes:
+            self.name
+            nEp += 1
+            ext = file.split('.')[-1]
+            os.rename(file, self.name+'_s'+str(self.season)+'e'+str(nEp)+'.'+ext)
+
+
+    def rename_subtitle(self):
+        nSb = 0
+        for file in self.sub:
+            new_name = self.name
+            nSb += 1
+            ext = file.split('.')[-1]
+            os.rename(file, new_name+'_s'+str(self.season)+'e'+str(nSb)+'.'+ext)
+
+
+args = parser.parse_args()
+
+r = Rename(args)
+
+r.scan_rep()
+
+r.rename_episodes()
+r.rename_subtitle()
 
 # Scanner le répertoire parent +1
 # Si "saison XX" garder XX en mémoire sous season
@@ -43,29 +99,8 @@ exts = ['mkv', 'avi', 'mp4']
 # "name_sXXeYY.ext"
 # Quitter à la fin de la boucle
 
-files = os.listdir(rep)
-episodes = []
-sub = []
+## TODO : interactif
 
 # Création d'une liste de video et d'une liste de sous-titres
 
-logger.debug(files)
-for file in files:
-    # pass
-    split_name = file.split('.')
-    if split_name[-1] in exts:
-        episodes.append(file)
-    elif split_name[-1] == 'srt':
-        sub.append(file)
 
-logger.debug(episodes)
-logger.debug(sub)
-
-new_name = ''
-
-# Renommage des episodes
-nEp = 0
-for file in episodes:
-    nEp += 1
-    ext = file.split('.')[-1]
-    os.rename(file, new_name+'_s'+str(season)+'e'+str(nEp)+'.'+ext)
