@@ -29,6 +29,7 @@ parser.add_argument(
 class Rename:
     def __init__(self, args):
         self.rep = args.rep
+        logger.debug(args)
         self.season = args.season
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
@@ -61,19 +62,21 @@ class Rename:
     def rename_episodes(self):
         nEp = 0
         for file in self.episodes:
-            self.name
             nEp += 1
             ext = file.split('.')[-1]
-            os.rename(file, self.name+'_s'+str(self.season)+'e'+str(nEp)+'.'+ext)
+            newName = f'{self.name}_s{str(self.season)}e{str(nEp)}.{ext}'
+            os.rename(file, newName)
+        logger.debug(self.episodes)
 
 
     def rename_subtitle(self):
         nSb = 0
         for file in self.sub:
-            new_name = self.name
             nSb += 1
             ext = file.split('.')[-1]
-            os.rename(file, new_name+'_s'+str(self.season)+'e'+str(nSb)+'.'+ext)
+            newSub = f'{self.name}_s{str(self.season)}e{str(nSb)}.{ext}'
+            os.rename(file, newSub)
+        logger.debug(self.sub)
 
 
 args = parser.parse_args()
