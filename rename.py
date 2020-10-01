@@ -34,6 +34,11 @@ class Rename:
                 self.episodes.append(file)
             elif split_name[-1] == 'srt':
                 self.sub.append(file)
+        if len(self.episodes) > 0:
+            self.rename_episodes()
+        if len(self.sub) > 0:
+            self.rename_subtitle()
+
 
 
     def rename_file(self, Name, newName):
@@ -45,8 +50,6 @@ class Rename:
             self.logger.warning(f'Failed to rename {Name}')
 
     def rename_episodes(self):
-        if len(self.episodes) > 0:
-            return
         self.logger.info(self.episodes)
         nEp = 0
         for file in self.episodes:
@@ -56,8 +59,6 @@ class Rename:
             self.rename_file(file, newName)
 
     def rename_subtitle(self):
-        if len(self.sub) > 0:
-            return
         self.logger.info(self.sub)
         nSb = 0
         for file in self.sub:
