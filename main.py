@@ -1,7 +1,7 @@
 import os
 import argparse
 
-import rename
+import engine
 import log
 
 parser = argparse.ArgumentParser()
@@ -19,8 +19,8 @@ logger = log.generate_logger()
 
 def main():
     args = parser.parse_args()
-    r = rename.Rename(args, logger)
-    r.run()
+    process = engine.Engine(args, logger)
+    process.run()
 
 main()
 
