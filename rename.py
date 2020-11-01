@@ -2,6 +2,7 @@ import os
 
 import log
 
+
 class Rename:
     def __init__(self, args, logger):
         self.logger = logger
@@ -9,38 +10,41 @@ class Rename:
 
     def rename_parent_rep(self, name):
         try:
-            old_name = os.path.abspath(self.rep)
-            new_name = f"{os.path.dirname(os.path.abspath(self.rep))}/{name}"
+            old_name = os.path.abspath('.')
+            new_name = f"{os.path.dirname(os.path.abspath('.'))}/{name}"
 
-            self.logger.info(f'Renaming : {name}')
             os.rename(old_name, new_name)
-            self.logger.info(f'Succes -> {name}')
+            self.logger.info(f'Renaming rep \"{new_name}\" from \"{name}\"')
         except:
-            self.logger.warning(f'Failed to rename {name}')
+            self.logger.warning(f'Failed to rename rep : \"{new_name}\" from \"{name}\"')
 
-
-    def rename_file(self, Name, newName):
+    def rename_file(self, name, new_name):
         try:
-            self.logger.info(f'Renaming : {Name}')
-            os.rename(Name, newName)
-            self.logger.info(f'Succes -> {newName}')
+            os.rename(name, new_name)
+            self.logger.info(f'Renaming file \"{new_name}\" from \"{name}\"')
         except:
-            self.logger.warning(f'Failed to rename {Name}')
+            self.logger.warning(f'Failed to rename file : \"{new_name}\" from \"{name}\"')
 
-    def rename_episodes(self, name, season, episodes):
-        self.logger.info(episodes)
+
+    def generate_season_name(self, num, name):
+        new_name = f'{name}_saison_{num :0>2}'
+        self.logger.debug(new_name)
+        self.rename_parent_rep(new_name)
+
+    def generate_names_episodes(self, name, season, episodes):
+        self.logger.info(f'{episodes}')
         nEp = 0
         for file in episodes:
             nEp += 1
             ext = file.split('.')[-1]
-            newName = f'{name}_s{str(season)}e{str(nEp)}.{ext}'
+            newName = f'{name}_s{str(season) :0>2}e{str(nEp) :0>2}.{ext}'
             self.rename_file(file, newName)
 
-    def rename_subtitle(self, name, season, subs):
+    def generate_names_subtitles(self, name, season, subs):
         self.logger.info(subs)
         nSb = 0
         for file in subs:
             nSb += 1
             ext = file.split('.')[-1]
-            newSub = f'{name}_s{str(season)}e{str(nSb)}.{ext}'
+            newSub = f'{name}_s{str(season) :0>2}e{str(nSb) :0>2}.{ext}'
             self.rename_file(file, newSub)
