@@ -64,6 +64,7 @@ class Engine:
             except:
                 self.logger.critical(f'Error 3. Echec du retour au repertoire parent')
                 exit(3)
+        self.rename.rename_parent_rep(self.name)
 
 
     def generate_lists(self):
