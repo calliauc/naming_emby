@@ -12,7 +12,10 @@ Renomme intégralement une serie TV
 Par défaut, le programme se lance dans le repertoire courant
 
 ``` bash
-rename.py --serie nom_serie [--repertoire repertoire_racine_serie] [-verbose] [-very-verbose]
+rename.py --serie nom_serie [--repertoire repertoire_racine_serie] [--verbose] [--very-verbose]
+```
+``` bash
+rename.py -s nom_serie [--r repertoire_racine_serie] [-v] [-vv]
 ```
 
 
