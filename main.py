@@ -14,12 +14,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "-n", "--name", help="Nom de la série", type=str, default='Name')
 parser.add_argument(
-    "-r", "--rep", help="Repertoire de la serie", type=str, default='.')
-
-logger = log.generate_logger()
+    "-r", "--repertoire", help="Repertoire de la serie", type=str, default='.')
+parser.add_argument(
+    "-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument(
+    "-vv", "--very-verbose", help="increase a lot output verbosity", action="store_true")
 
 def main():
     args = parser.parse_args()
+    logger = log.generate_logger(args)
     process = engine.Engine(args, logger)
     process.run()
 

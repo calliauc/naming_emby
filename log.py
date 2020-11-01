@@ -1,6 +1,6 @@
 import logging
 
-def generate_logger():
+def generate_logger(args):
     logger = logging.getLogger('Journal_exemple')
     logger.setLevel(logging.DEBUG)
 
@@ -11,7 +11,12 @@ def generate_logger():
     logger.addHandler(fl)
 
     cl = logging.StreamHandler()
-    cl.setLevel(logging.INFO)
+    if args.verbose == True:
+        cl.setLevel(logging.INFO)
+    elif args.very_verbose == True:
+        cl.setLevel(logging.DEBUG)
+    else:
+        cl.setLevel(logging.WARNING)
     consoleFormatter = logging.Formatter('%(levelname)s - %(message)s')
     cl.setFormatter(consoleFormatter)
     logger.addHandler(cl)

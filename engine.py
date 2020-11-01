@@ -7,7 +7,7 @@ class Engine:
     def __init__(self, args, logger):
         self.rename = rename.Rename(args, logger)
         self.logger = logger
-        self.rep = args.rep
+        self.rep = args.repertoire
         self.logger.debug(args)
         self.season = args.season
         self.name = args.name
