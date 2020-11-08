@@ -28,8 +28,3 @@ def main():
 
 main()
 
-
-
-# Création d'une liste de video et d'une liste de sous-titres
-
-

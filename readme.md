@@ -27,3 +27,9 @@ rename.py -s nom_serie [--r repertoire_racine_serie] [-v] [-vv]
 * Le code ne prend en charge que le format de sous-titre `.srt`
 * Code instable, aucune vérification des fichiers avant renommage
 * A ne pas utilier sans protection/sauvegarde !
+
+* Features a venir
+    * Empaquetage du code pour une utilisation simplifiée
+    * Mode interractif pour éviter un renommage involontaire
+    * Renommage d'une seule saison au lieu de la série entière
+    * Plus de formats pris en charge

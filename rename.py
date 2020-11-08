@@ -14,9 +14,9 @@ class Rename:
             new_name = f"{os.path.dirname(os.path.abspath('.'))}/{name}"
 
             os.rename(old_name, new_name)
-            self.logger.info(f'Renaming rep \"{new_name}\" from \"{name}\"')
+            self.logger.info(f'Renaming rep \"{new_name}\" from \"{old_name}\"')
         except:
-            self.logger.warning(f'Failed to rename rep : \"{new_name}\" from \"{name}\"')
+            self.logger.warning(f'Failed to rename rep : \"{new_name}\" from \"{old_name}\"')
 
     def rename_file(self, name, new_name):
         try:
@@ -37,7 +37,10 @@ class Rename:
         for file in episodes:
             nEp += 1
             ext = file.split('.')[-1]
-            newName = f'{name}_s{str(season) :0>2}e{str(nEp) :0>2}.{ext}'
+            if int(season) == 0: 
+                newName = f'{name}_e{str(nEp) :0>2}.{ext}'
+            else:
+                newName = f'{name}_s{str(season) :0>2}e{str(nEp) :0>2}.{ext}'
             self.rename_file(file, newName)
 
     def generate_names_subtitles(self, name, season, subs):

@@ -9,7 +9,7 @@ class Engine:
         self.logger = logger
         self.rep = args.repertoire
         self.logger.debug(args)
-        self.season = args.season
+        self.season = '0'
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
 
@@ -31,10 +31,17 @@ class Engine:
     def run(self):
         if self.season == '0':
             self.generate_list_seasons()
-            self.walk_in_seasons()
-                
+            if  len(self.seasons) >= 1:
+                self.logger.info(f'Plusieurs saisons à renommer')
+                self.walk_in_seasons()
+            elif len(self.seasons) == 0:
+                self.logger.info(f'Une seule saison à renommer')
+                self.generate_lists()
+                self.rename.rename_parent_rep(self.name)
+
 
     def generate_list_seasons(self):
+        self.seasons = []
         self.files = os.listdir('.')
         self.logger.debug(self.files)
         for file in self.files:
