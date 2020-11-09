@@ -32,7 +32,7 @@ class Rename:
         self.rename_parent_rep(new_name)
 
     def generate_names_episodes(self, name, season, episodes):
-        self.logger.info(f'{episodes}')
+        self.logger.info(f'Liste des episodes : {episodes}')
         nEp = 0
         for file in episodes:
             nEp += 1

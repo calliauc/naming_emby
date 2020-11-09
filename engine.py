@@ -9,9 +9,10 @@ class Engine:
         self.logger = logger
         self.rep = args.repertoire
         self.logger.debug(args)
-        self.season = '0'
+        self.season = args.season
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
+        self.ignore = ['OAV', 'Bonus', 'Special']
 
         try:
             os.chdir(self.rep)
@@ -29,15 +30,21 @@ class Engine:
 
 
     def run(self):
-        if self.season == '0':
+        if self.season == False:
             self.generate_list_seasons()
             if  len(self.seasons) >= 1:
                 self.logger.info(f'Plusieurs saisons à renommer')
+                self.logger.info(f'Liste des saisons : {self.seasons}')
                 self.walk_in_seasons()
             elif len(self.seasons) == 0:
                 self.logger.info(f'Une seule saison à renommer')
                 self.generate_lists()
                 self.rename.rename_parent_rep(self.name)
+        else:
+            self.logger.info(f'Renommage de la saison {self.season} de {self.name}')
+            self.generate_lists()
+            self.rename.generate_season_name(self.season, self.name)
+
 
 
     def generate_list_seasons(self):
@@ -46,11 +53,13 @@ class Engine:
         self.logger.debug(self.files)
         for file in self.files:
             if os.path.isdir(file):
-                self.logger.debug(f'Trouvé saison : {file}')
-                self.seasons.append(file)
+                if file not in self.ignore:
+                    self.logger.debug(f'Trouvé saison : {file}')
+                    self.seasons.append(file)
+                else:
+                    self.logger.info(f'Repertoire {file} ignoré')
             else:
                 self.logger.debug(f'{file} n\'est pas un repertoire')
-        self.logger.info(f'Liste des saisons : {self.seasons}')
 
 
     def walk_in_seasons(self):
