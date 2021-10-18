@@ -12,7 +12,7 @@ class Engine:
         self.season = args.season
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
-        self.ignore = ['OAV', 'Bonus', 'Special']
+        self.ignore = ['OAV', 'oav', 'Bonus', 'bonus', 'Special', 'special', 'Specials', 'specials']
 
         try:
             os.chdir(self.rep)
@@ -34,6 +34,12 @@ class Engine:
             self.generate_list_seasons()
             if  len(self.seasons) >= 1:
                 self.logger.info(f'Plusieurs saisons à renommer')
+                try:
+                    self.seasons.sort()
+                    self.logger.info(f'Tri des saisons')
+                except:
+                    self.logger.error(f'Erreur lors du tri des saisons')
+                    exit(4)
                 self.logger.info(f'Liste des saisons : {self.seasons}')
                 self.walk_in_seasons()
             elif len(self.seasons) == 0:
@@ -60,6 +66,7 @@ class Engine:
                     self.logger.info(f'Repertoire {file} ignoré')
             else:
                 self.logger.debug(f'{file} n\'est pas un repertoire')
+
 
 
     def walk_in_seasons(self):

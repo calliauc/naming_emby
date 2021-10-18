@@ -32,6 +32,12 @@ class Rename:
         self.rename_parent_rep(new_name)
 
     def generate_names_episodes(self, name, season, episodes):
+        try:
+            episodes.sort()
+            self.logger.info(f'Tri des episodes')
+        except:
+            self.logger.error(f'Erreur lors du tri des episodes')
+            exit(5)
         self.logger.info(f'Liste des episodes : {episodes}')
         nEp = 0
         for file in episodes:
@@ -44,6 +50,12 @@ class Rename:
             self.rename_file(file, newName)
 
     def generate_names_subtitles(self, name, season, subs):
+        try:
+            subs.sort()
+            self.logger.info(f'Tri des subs')
+        except:
+            self.logger.error(f'Erreur lors du tri des subs')
+            exit(6)
         self.logger.info(subs)
         nSb = 0
         for file in subs:
