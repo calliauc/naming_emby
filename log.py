@@ -4,7 +4,7 @@ def generate_logger(args):
     logger = logging.getLogger('Journal_exemple')
     logger.setLevel(logging.DEBUG)
 
-    fl = logging.FileHandler('debug.log')
+    fl = logging.FileHandler('renaming.log')
     fl.setLevel(logging.DEBUG)
     fileFormatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     fl.setFormatter(fileFormatter)

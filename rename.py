@@ -14,7 +14,7 @@ class Rename:
             old_name = os.path.abspath('.')
             new_name = f"{os.path.dirname(os.path.abspath('.'))}/{name}"
 
-            if self.simu:
+            if self.simu == False:
                 os.rename(old_name, new_name)
             self.logger.info(f'Renaming rep \"{new_name}\" from \"{old_name}\"')
         except:
@@ -22,7 +22,7 @@ class Rename:
 
     def rename_file(self, name, new_name):
         try:
-            if self.simu:
+            if self.simu == False:
                 os.rename(name, new_name)
             self.logger.info(f'Renaming file \"{new_name}\" from \"{name}\"')
         except:
