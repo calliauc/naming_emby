@@ -4,8 +4,9 @@ import log
 
 
 class Rename:
-    def __init__(self, args, logger):
+    def __init__(self, args, logger, simu):
         self.logger = logger
+        self.simu = simu
 
 
     def rename_parent_rep(self, name):
@@ -13,14 +14,16 @@ class Rename:
             old_name = os.path.abspath('.')
             new_name = f"{os.path.dirname(os.path.abspath('.'))}/{name}"
 
-            os.rename(old_name, new_name)
+            if self.simu:
+                os.rename(old_name, new_name)
             self.logger.info(f'Renaming rep \"{new_name}\" from \"{old_name}\"')
         except:
             self.logger.warning(f'Failed to rename rep : \"{new_name}\" from \"{old_name}\"')
 
     def rename_file(self, name, new_name):
         try:
-            os.rename(name, new_name)
+            if self.simu:
+                os.rename(name, new_name)
             self.logger.info(f'Renaming file \"{new_name}\" from \"{name}\"')
         except:
             self.logger.warning(f'Failed to rename file : \"{new_name}\" from \"{name}\"')

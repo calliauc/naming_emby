@@ -5,10 +5,18 @@ import rename
 
 class Engine:
     def __init__(self, args, logger):
-        self.rename = rename.Rename(args, logger)
         self.logger = logger
-        self.rep = args.repertoire
         self.logger.debug(args)
+
+        if args.simulation == True:
+            self.simu = True
+            self.logger.warning(f'LE SCRIPT FONCTIONNE EN MODE SIMULATION. AUCUN CHANGEMENT DEFINITIF')
+        else:
+            self.simu = False
+            self.logger.warning(f'Le script fonctionne en mode normal, les changement sont définitifs.')
+
+        self.rename = rename.Rename(args, logger, self.simu)
+        self.rep = args.repertoire
         self.season = args.season
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
