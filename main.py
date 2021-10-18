@@ -18,7 +18,7 @@ parser.add_argument(
 parser.add_argument(
     "-r", "--repertoire", help="Repertoire de la serie", type=str, default='.')
 parser.add_argument(
-    "-S", "--simulation", help="Simule sans agir", default="store_true")
+    "-S", "--simulation", help="Simule sans agir", action="store_true")
 parser.add_argument(
     "-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument(
