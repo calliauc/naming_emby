@@ -20,7 +20,7 @@ class Engine:
         self.season = args.season
         self.name = args.name
         self.exts = ['mkv', 'avi', 'mp4']
-        self.ignore = ['OAV', 'oav', 'Bonus', 'bonus', 'Special', 'special', 'Specials', 'specials']
+        self.ignore = ['oav', 'bonus', 'special', 'specials']
 
         try:
             os.chdir(self.rep)
@@ -67,7 +67,7 @@ class Engine:
         self.logger.debug(self.files)
         for file in self.files:
             if os.path.isdir(file):
-                if file not in self.ignore:
+                if file.lower() not in self.ignore:
                     self.logger.debug(f'Trouvé saison : {file}')
                     self.seasons.append(file)
                 else:
@@ -109,9 +109,9 @@ class Engine:
             else:
                 pass
             split_name = file.split('.')
-            if split_name[-1] in self.exts:
+            if split_name[-1].lower() in self.exts:
                 self.episodes.append(file)
-            elif split_name[-1] == 'srt':
+            elif split_name[-1].lower() == 'srt':
                 self.subs.append(file)
         if len(self.episodes) > 0:
             self.rename.generate_names_episodes(self.name, self.season, self.episodes)

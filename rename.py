@@ -45,7 +45,7 @@ class Rename:
         nEp = 0
         for file in episodes:
             nEp += 1
-            ext = file.split('.')[-1]
+            ext = file.split('.')[-1].lower()
             if int(season) == 0: 
                 newName = f'{name}_e{str(nEp) :0>2}.{ext}'
             else:
@@ -63,6 +63,6 @@ class Rename:
         nSb = 0
         for file in subs:
             nSb += 1
-            ext = file.split('.')[-1]
+            ext = file.split('.')[-1].lower()
             newSub = f'{name}_s{str(season) :0>2}e{str(nSb) :0>2}.{ext}'
             self.rename_file(file, newSub)
