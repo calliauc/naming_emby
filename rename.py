@@ -37,11 +37,11 @@ class Rename:
     def generate_names_episodes(self, name, season, episodes):
         try:
             episodes.sort()
-            self.logger.info(f'Tri des episodes')
+            self.logger.debug(f'Tri des episodes')
         except:
             self.logger.error(f'Erreur lors du tri des episodes')
             exit(5)
-        self.logger.info(f'Liste des episodes : {episodes}')
+        self.logger.debug(f'Liste des episodes : {episodes}')
         nEp = 0
         for file in episodes:
             nEp += 1
